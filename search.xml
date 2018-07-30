@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
-    <url>%2F2018%2F07%2F30%2Fhello%2F</url>
-    <content type="text"></content>
+    <title><![CDATA[Windows10下安装kali子系统]]></title>
+    <url>%2F2018%2F07%2F30%2Fwin10kali%2F</url>
+    <content type="text"><![CDATA[由于自己的电脑内存较小，每次打开虚拟机时总要卡半天，用着很难受。一个偶然的机会，听到大佬们讨论说win10下有官方的kali子系统，本菜鸡就尝试着装了一波，大部分的问题也都解决了，用起来感觉还是不错的，也相当于又巩固了一遍Linux。 环境：Windows10 1803 PS：良好的网络是很重要的 1.安装kali子系统打开设置&gt;&gt;应用和功能&gt;&gt;程序和功能&gt;&gt;启用或关闭windows功能,将图片中的选项打钩，重启电脑 在应用商店里搜索kali并下载kali linux。 下载完成之后启动，就会开始自动安装。这期间可能需要等待几分钟。接下来会让你创建一个非root的用户，并输入密码。这样一个win10下的kali子系统就安装好了。 2.配置安装好的kali子系统安装完毕之后，你会发现这个kali是什么也没有的，这时候就需要我们配置了。 apt-get install kali-linux-all 下载kali下的所有工具,这时候可能会产生报错（如果没有接下来这些报错的话，下面的步骤都可以直接跳过，跳到第三部分） E: Could not open lock file /var/lib/dpkg/lock - open (13: Permission denied) E: Unable to lock the administration directory (/var/lib/dpkg/), are you root? 系统提醒你权限不够 sudo su将自己的权限提升到root下，再次执行apt-get install kali-linux-all,发现还是会报错。 E: Unable to correct problems, you have held broken packages. 这时我们需要更新一下源。 cp /etc/apt/sources.list /etc/apt/sources.list.bak 首先将原来的文件备份，防止出现不可预测的问题。 vi /etc/apt/source.list 通过vi编辑器打开源文件，将下列复制到源文件中。 deb http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib deb http://mirrors.ustc.edu.cn/kali kali-rolling main contrib non-free deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main contrib non-free deb http://mirrors.ustc.edu.cn/kali-security kali-current/updates main contrib non-free deb-src http://mirrors.ustc.edu.cn/kali-security kali-current/updates main contrib non-free 更换为中科大的源 apt-get update &amp;&amp; apt-get dist-upgrade 更新一下 apt-get install kali-linux-all 稍等几分钟，kali下的工具还是很多的。配置一下。语言选择中文。由于子系统和Windows可以交互，网络什么的感觉无所谓了，所以其他默认就好了。接下来就会将下载的安装包，我们只需要坐等安装完成就好了。 3.Windows远程连接kali子系统安装xrdp进行远程桌面连接 wget https://raw.githubusercontent.com/Mr-xn/server-bash-script/master/xfce-xrdp.sh sh xfce-xrdp.sh 下载好以后启动xrdp服务 service xrdp start 接下来就可以在Windows远程桌面连接127.0.0.1:3390连接kali子系统。 [....] Starting Remote Desktop Protocol server: xrdp-sesman xrdp[20180611-13:50:57] [DEBUG] Testing if xrdp can listen on 0.0.0.0 port 3390. [20180611-13:50:57] [DEBUG] Closed socket 6 (AF_INET6 :: port 3390) . ok 输入安装kali时的用户名和密码。然后选择Use default config加载默认配置即可。 4.与Windows本机的交互这个kali子系统的操作和平时的kali没有什么区别，如果想要与Windows交互的话，可以去/mnt/下，就可以看到本机下的各个磁盘，这时就可以实现与Windows本机的交互了。启动时，可以在cmd下输入bash启动。 #注：千万不要在root用户下尝试rm -rf /mnt/c/* Copyright ©2018 by Prowes5]]></content>
+      <categories>
+        <category>技术分享</category>
+      </categories>
+      <tags>
+        <tag>kali</tag>
+        <tag>子系统</tag>
+      </tags>
   </entry>
 </search>
